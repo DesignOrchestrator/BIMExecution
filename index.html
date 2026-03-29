@@ -1,842 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BIMExecution.com — End-to-End BIM Production</title>
-  <link rel="icon" type="image/png" href="BIMExecution_BrowserTabLogo.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <title>BIMExecution.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Favicon -->
+  <link rel="icon" href="BIMExecution_BrowserTabLogo.png">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    /* ── TOKENS ─────────────────────────────────────────── */
-    :root {
-      --navy:   #1b3464;
-      --navy-2: #243f7a;
-      --blue:   #2d52a0;
-      --sky:    #e8eef8;
-      --white:  #ffffff;
-      --grey-1: #f5f6f8;
-      --grey-2: #e2e6ed;
-      --grey-3: #8a93a2;
-      --grey-4: #4a5568;
-      --dark:   #1a1f2e;
-      --gold:   #c9a84c;
-      --radius: 12px;
-      --shadow: 0 4px 24px rgba(27,52,100,.10);
-      --shadow-lg: 0 12px 48px rgba(27,52,100,.16);
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
     body {
-      font-family: 'DM Sans', sans-serif;
-      color: var(--dark);
-      background: var(--white);
-      -webkit-font-smoothing: antialiased;
-    }
-    h1,h2,h3,h4 { font-family: 'Syne', sans-serif; }
-
-    /* ── UTILITIES ──────────────────────────────────────── */
-    .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
-    .tag {
-      display: inline-block;
-      font-size: .72rem;
-      font-weight: 600;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--blue);
-      background: var(--sky);
-      padding: 5px 14px;
-      border-radius: 999px;
-      margin-bottom: 18px;
-    }
-    .section-title {
-      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-      font-weight: 800;
-      color: var(--navy);
-      line-height: 1.2;
-      margin-bottom: 14px;
-    }
-    .section-sub {
-      font-size: 1.05rem;
-      color: var(--grey-4);
-      max-width: 540px;
-      line-height: 1.7;
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f5f7fa;
+      color: #1a1a1a;
     }
 
-    /* ── NAVBAR ─────────────────────────────────────────── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(255,255,255,.92);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--grey-2);
-      transition: box-shadow .3s;
-    }
-    nav.scrolled { box-shadow: var(--shadow); }
-    .nav-inner {
+    header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 18px 24px;
-      max-width: 1160px;
-      margin: 0 auto;
+      padding: 20px 40px;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
-    .nav-logo img { height: 30px; display: block; }
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-    .nav-links a {
-      text-decoration: none;
-      font-size: .9rem;
-      font-weight: 500;
-      color: var(--grey-4);
-      transition: color .2s;
-    }
-    .nav-links a:hover { color: var(--navy); }
-    .nav-cta {
-      background: var(--navy);
-      color: #fff !important;
-      padding: 9px 22px;
-      border-radius: 8px;
-      font-weight: 600 !important;
-      font-size: .88rem !important;
-      transition: background .2s, transform .15s !important;
-    }
-    .nav-cta:hover { background: var(--blue) !important; transform: translateY(-1px); }
 
-    /* ── HERO ───────────────────────────────────────────── */
-    #hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      background: linear-gradient(160deg, #0e1e3f 0%, #1b3464 45%, #243f7a 100%);
-      position: relative;
-      overflow: hidden;
-      padding-top: 80px;
+    header img {
+      height: 40px;
     }
-    #hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 60% 55% at 75% 30%, rgba(45,82,160,.35) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(201,168,76,.08) 0%, transparent 70%);
+
+    .hero {
+      text-align: center;
+      padding: 80px 20px;
+      background: linear-gradient(135deg, #0d47a1, #1976d2);
+      color: white;
     }
-    /* Subtle grid overlay */
-    #hero::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
-      background-size: 60px 60px;
+
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 20px;
     }
-    .hero-inner {
-      position: relative;
-      z-index: 2;
-      max-width: 780px;
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 30px;
     }
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255,255,255,.1);
-      border: 1px solid rgba(255,255,255,.18);
-      color: #fff;
-      font-size: .78rem;
+
+    .btn {
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      margin: 5px;
       font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      padding: 7px 16px;
-      border-radius: 999px;
-      margin-bottom: 28px;
     }
-    .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); display: inline-block; }
-    h1 {
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
-      font-weight: 800;
-      color: #fff;
-      line-height: 1.12;
-      margin-bottom: 22px;
+
+    .btn-primary {
+      background: white;
+      color: #0d47a1;
     }
-    h1 em {
-      font-style: normal;
-      color: var(--gold);
+
+    .btn-secondary {
+      border: 2px solid white;
+      color: white;
     }
-    .hero-sub {
-      font-size: 1.15rem;
-      color: rgba(255,255,255,.72);
-      max-width: 580px;
-      line-height: 1.75;
+
+    section {
+      padding: 60px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
       margin-bottom: 40px;
     }
-    .btn-group { display: flex; gap: 14px; flex-wrap: wrap; }
-    .btn-primary {
-      background: var(--gold);
-      color: #fff;
-      border: none;
-      padding: 15px 34px;
-      border-radius: 10px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: transform .2s, box-shadow .2s;
-      box-shadow: 0 4px 20px rgba(201,168,76,.35);
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201,168,76,.45); }
-    .btn-secondary {
-      background: transparent;
-      color: #fff;
-      border: 2px solid rgba(255,255,255,.35);
-      padding: 14px 32px;
-      border-radius: 10px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1rem;
-      font-weight: 500;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: border-color .2s, background .2s;
-    }
-    .btn-secondary:hover { border-color: rgba(255,255,255,.7); background: rgba(255,255,255,.08); }
-    .hero-stats {
-      display: flex;
-      gap: 40px;
-      margin-top: 56px;
-      padding-top: 36px;
-      border-top: 1px solid rgba(255,255,255,.12);
-      flex-wrap: wrap;
-    }
-    .stat-item { color: rgba(255,255,255,.9); }
-    .stat-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 2rem;
-      font-weight: 800;
-      color: #fff;
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-    .stat-label { font-size: .82rem; color: rgba(255,255,255,.55); text-transform: uppercase; letter-spacing: .08em; }
 
-    /* ── SERVICES ───────────────────────────────────────── */
-    #services { padding: 100px 0; background: var(--white); }
-    .section-header { margin-bottom: 60px; }
-    .services-grid {
+    .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 24px;
-    }
-    .service-card {
-      border: 1px solid var(--grey-2);
-      border-radius: var(--radius);
-      padding: 36px 30px;
-      transition: box-shadow .3s, transform .3s, border-color .3s;
-      position: relative;
-      overflow: hidden;
-    }
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--navy);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform .35s;
-    }
-    .service-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); border-color: var(--grey-3); }
-    .service-card:hover::before { transform: scaleX(1); }
-    .service-icon {
-      width: 52px; height: 52px;
-      background: var(--sky);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 22px;
-      font-size: 1.5rem;
-    }
-    .service-card h3 { font-size: 1.15rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
-    .service-card p { font-size: .9rem; color: var(--grey-4); line-height: 1.7; margin-bottom: 16px; }
-    .service-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .s-tag {
-      font-size: .72rem;
-      font-weight: 600;
-      background: var(--sky);
-      color: var(--blue);
-      padding: 4px 10px;
-      border-radius: 6px;
-    }
-
-    /* ── WHY US ─────────────────────────────────────────── */
-    #why {
-      padding: 100px 0;
-      background: var(--grey-1);
-    }
-    .why-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 24px;
-      margin-top: 56px;
-    }
-    .why-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 32px 28px;
-      box-shadow: var(--shadow);
-      transition: transform .3s;
-    }
-    .why-card:hover { transform: translateY(-3px); }
-    .why-icon {
-      font-size: 2rem;
-      margin-bottom: 16px;
-    }
-    .why-card h4 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
-    .why-card p { font-size: .88rem; color: var(--grey-4); line-height: 1.65; }
-
-    /* ── PACKAGES ───────────────────────────────────────── */
-    #packages { padding: 100px 0; background: var(--white); }
-    .packages-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
-      margin-top: 56px;
-    }
-    .pkg-card {
-      border: 1.5px solid var(--grey-2);
-      border-radius: var(--radius);
-      padding: 36px 28px;
-      position: relative;
-      transition: box-shadow .3s, transform .3s;
-    }
-    .pkg-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
-    .pkg-card.featured {
-      border-color: var(--navy);
-      background: var(--navy);
-      color: #fff;
-    }
-    .pkg-badge {
-      position: absolute;
-      top: -13px; left: 50%; transform: translateX(-50%);
-      background: var(--gold);
-      color: #fff;
-      font-size: .72rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      padding: 4px 16px;
-      border-radius: 999px;
-      white-space: nowrap;
-    }
-    .pkg-name { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
-    .pkg-card.featured .pkg-name { color: rgba(255,255,255,.7); }
-    .pkg-price {
-      font-family: 'Syne', sans-serif;
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--navy);
-      margin-bottom: 4px;
-      line-height: 1;
-    }
-    .pkg-card.featured .pkg-price { color: #fff; }
-    .pkg-from { font-size: .78rem; color: var(--grey-3); margin-bottom: 22px; }
-    .pkg-card.featured .pkg-from { color: rgba(255,255,255,.5); }
-    .pkg-features { list-style: none; margin-bottom: 28px; }
-    .pkg-features li {
-      font-size: .88rem;
-      color: var(--grey-4);
-      padding: 7px 0;
-      border-bottom: 1px solid var(--grey-2);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .pkg-card.featured .pkg-features li { color: rgba(255,255,255,.75); border-bottom-color: rgba(255,255,255,.12); }
-    .pkg-features li::before { content: '✓'; color: var(--blue); font-weight: 700; flex-shrink: 0; }
-    .pkg-card.featured .pkg-features li::before { color: var(--gold); }
-    .btn-pkg {
-      display: block;
-      text-align: center;
-      padding: 12px;
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .92rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background .2s, transform .15s;
-    }
-    .btn-pkg-outline {
-      border: 2px solid var(--navy);
-      color: var(--navy);
-    }
-    .btn-pkg-outline:hover { background: var(--navy); color: #fff; }
-    .btn-pkg-solid {
-      background: var(--gold);
-      color: #fff;
-      border: 2px solid var(--gold);
-    }
-    .btn-pkg-solid:hover { background: #b8923e; border-color: #b8923e; transform: translateY(-1px); }
-
-    /* ── HOW IT WORKS ───────────────────────────────────── */
-    #how { padding: 100px 0; background: var(--grey-1); }
-    .steps { display: flex; gap: 0; margin-top: 60px; position: relative; flex-wrap: wrap; }
-    .step {
-      flex: 1;
-      min-width: 240px;
-      text-align: center;
-      padding: 0 32px;
-      position: relative;
-    }
-    .step:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      right: 0; top: 36px;
-      width: 1px; height: 32px;
-      background: var(--grey-2);
-    }
-    .step-num {
-      width: 72px; height: 72px;
-      border-radius: 50%;
-      background: var(--navy);
-      color: #fff;
-      font-family: 'Syne', sans-serif;
-      font-size: 1.6rem;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 22px;
-      box-shadow: 0 8px 24px rgba(27,52,100,.25);
-    }
-    .step h3 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
-    .step p { font-size: .9rem; color: var(--grey-4); line-height: 1.65; }
-
-    /* ── CLIENTS ────────────────────────────────────────── */
-    #clients { padding: 100px 0; background: var(--white); }
-    .clients-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 20px;
-      margin-top: 56px;
     }
-    .client-card {
-      border: 1.5px solid var(--grey-2);
-      border-radius: var(--radius);
-      padding: 32px 20px;
-      text-align: center;
-      transition: border-color .3s, box-shadow .3s;
-    }
-    .client-card:hover { border-color: var(--navy); box-shadow: var(--shadow); }
-    .client-icon { font-size: 2.2rem; margin-bottom: 14px; }
-    .client-card h4 { font-size: .92rem; font-weight: 700; color: var(--navy); }
-    .client-card p { font-size: .8rem; color: var(--grey-3); margin-top: 5px; }
 
-    /* ── FINAL CTA ──────────────────────────────────────── */
-    #cta {
-      padding: 100px 0;
-      background: linear-gradient(135deg, #0e1e3f 0%, #1b3464 60%, #243f7a 100%);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    #cta::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-    .cta-inner { position: relative; z-index: 2; }
-    #cta h2 {
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      color: #fff;
-      margin-bottom: 16px;
-    }
-    #cta p { font-size: 1.1rem; color: rgba(255,255,255,.65); margin-bottom: 40px; }
-    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-    .btn-cta-primary {
-      background: var(--gold);
-      color: #fff;
-      padding: 15px 36px;
+    .card {
+      background: white;
+      padding: 20px;
       border-radius: 10px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: transform .2s, box-shadow .2s;
-      box-shadow: 0 4px 20px rgba(201,168,76,.35);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     }
-    .btn-cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201,168,76,.5); }
-    .btn-cta-secondary {
-      background: transparent;
-      color: #fff;
-      border: 2px solid rgba(255,255,255,.3);
-      padding: 14px 34px;
-      border-radius: 10px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: border-color .2s, background .2s;
-    }
-    .btn-cta-secondary:hover { border-color: rgba(255,255,255,.7); background: rgba(255,255,255,.08); }
 
-    /* ── FOOTER ─────────────────────────────────────────── */
+    .pricing {
+      border: 2px solid #1976d2;
+    }
+
+    .cta {
+      text-align: center;
+      background: #0d47a1;
+      color: white;
+      padding: 60px 20px;
+    }
+
     footer {
-      background: var(--dark);
-      color: rgba(255,255,255,.5);
       text-align: center;
-      padding: 28px 24px;
-      font-size: .85rem;
-    }
-    footer a { color: rgba(255,255,255,.65); text-decoration: none; }
-    footer a:hover { color: #fff; }
-    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; max-width: 1160px; margin: 0 auto; }
-
-    /* ── REVEAL ANIMATION ───────────────────────────────── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity .65s ease, transform .65s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    /* ── RESPONSIVE ─────────────────────────────────────── */
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .hero-stats { gap: 24px; }
-      .step:not(:last-child)::after { display: none; }
+      padding: 20px;
+      font-size: 14px;
+      background: #eee;
     }
   </style>
 </head>
+
 <body>
 
-  <!-- ─── NAVBAR ─────────────────────────────────────── -->
-  <nav id="navbar">
-    <div class="nav-inner">
-      <a class="nav-logo" href="#">
-        <img src="BIMExecution_Logo_2.png" alt="BIMExecution.com" />
-      </a>
-      <ul class="nav-links">
-        <li><a href="#services">Services</a></li>
-        <li><a href="#packages">Packages</a></li>
-        <li><a href="#how">Process</a></li>
-        <li><a href="#clients">Clients</a></li>
-        <li><a class="nav-cta" href="#cta">Get a Quote</a></li>
-      </ul>
+<!-- HEADER -->
+<header>
+  <img src="BIMExecution_Logo_2.png" alt="BIMExecution Logo">
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>End-to-End BIM Production</h1>
+  <p>Design Development, Shop Drawings, As-Built Models & BIM Families</p>
+  <a href="mailto:youremail@example.com" class="btn btn-primary">Get a Quote</a>
+  <a href="#" class="btn btn-secondary">View Sample Work</a>
+</section>
+
+<!-- SERVICES -->
+<section>
+  <h2>Complete BIM Solutions</h2>
+  <div class="grid">
+
+    <div class="card">
+      <h3>Design Development</h3>
+      <p>LOD 200–300 modeling and coordination support.</p>
     </div>
-  </nav>
 
-  <!-- ─── HERO ───────────────────────────────────────── -->
-  <section id="hero">
-    <div class="container">
-      <div class="hero-inner">
-        <div class="hero-badge"><span></span> BIM Production Specialists</div>
-        <h1>End-to-End BIM Production —<br /><em>Design to As-Built</em> + BIM<br />Content Creation</h1>
-        <p class="hero-sub">Complete BIM solutions including design development, shop drawings, as-built models, and BIM families for manufacturers. Delivered fast, to standard.</p>
-        <div class="btn-group">
-          <a href="#cta" class="btn-primary">Get a Quote</a>
-          <a href="#packages" class="btn-secondary">View Packages</a>
-        </div>
-        <div class="hero-stats">
-          <div class="stat-item">
-            <div class="stat-num">50%</div>
-            <div class="stat-label">Cost Savings</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-num">LOD 200–400</div>
-            <div class="stat-label">BIM Standards</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-num">Fast</div>
-            <div class="stat-label">Turnaround</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-num">Scalable</div>
-            <div class="stat-label">Team Capacity</div>
-          </div>
-        </div>
-      </div>
+    <div class="card">
+      <h3>Model + Shop Drawings</h3>
+      <p>LOD 300–400 models with full construction drawings.</p>
     </div>
-  </section>
 
-  <!-- ─── SERVICES ──────────────────────────────────── -->
-  <section id="services">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="tag">What We Do</span>
-        <h2 class="section-title">Complete BIM Solutions</h2>
-        <p class="section-sub">From early design development through to final as-built handover, we handle every stage of your BIM workflow.</p>
-      </div>
-      <div class="services-grid">
-        <div class="service-card reveal">
-          <div class="service-icon">📐</div>
-          <h3>Design Development</h3>
-          <p>Early-stage BIM modeling to support design intent, coordination, and documentation during the DD phase.</p>
-          <div class="service-tags">
-            <span class="s-tag">LOD 200</span>
-            <span class="s-tag">LOD 300</span>
-            <span class="s-tag">Coordination</span>
-          </div>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon">🏗️</div>
-          <h3>BIM Modeling + Shop Drawings</h3>
-          <p>Detailed construction-phase models with full drawing production and clash coordination ready for fabrication.</p>
-          <div class="service-tags">
-            <span class="s-tag">LOD 300–400</span>
-            <span class="s-tag">Shop Drawings</span>
-            <span class="s-tag">Clash Detection</span>
-          </div>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon">✅</div>
-          <h3>As-Built BIM</h3>
-          <p>Post-construction model updates reflecting final site conditions, ready for handover and facilities management.</p>
-          <div class="service-tags">
-            <span class="s-tag">As-Built</span>
-            <span class="s-tag">Handover Docs</span>
-            <span class="s-tag">FM Ready</span>
-          </div>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon">🔧</div>
-          <h3>BIM Family Creation</h3>
-          <p>Parametric Revit families built to manufacturer specifications with embedded data and LOD compliance.</p>
-          <div class="service-tags">
-            <span class="s-tag">Parametric</span>
-            <span class="s-tag">Manufacturer Data</span>
-            <span class="s-tag">LOD 200–400</span>
-          </div>
-        </div>
-      </div>
+    <div class="card">
+      <h3>As-Built BIM</h3>
+      <p>Final updated models for handover and documentation.</p>
     </div>
-  </section>
 
-  <!-- ─── WHY US ─────────────────────────────────────── -->
-  <section id="why">
-    <div class="container">
-      <div class="reveal">
-        <span class="tag">Why Choose Us</span>
-        <h2 class="section-title">Built for Efficiency.<br />Delivered with Precision.</h2>
-        <p class="section-sub">We work as an extension of your team — bringing speed, cost-effectiveness, and consistent quality to every project.</p>
-      </div>
-      <div class="why-grid">
-        <div class="why-card reveal">
-          <div class="why-icon">⚡</div>
-          <h4>Fast Turnaround</h4>
-          <p>Structured workflows and dedicated teams ensure deliverables are on time, every time — without sacrificing detail.</p>
-        </div>
-        <div class="why-card reveal">
-          <div class="why-icon">💰</div>
-          <h4>Up to 50% Cost Savings</h4>
-          <p>Optimized offshore production pipelines deliver the same quality output at a fraction of the in-house cost.</p>
-        </div>
-        <div class="why-card reveal">
-          <div class="why-icon">🎯</div>
-          <h4>Standardized Quality</h4>
-          <p>Every model follows BIM execution plan standards, naming conventions, and LOD requirements from day one.</p>
-        </div>
-        <div class="why-card reveal">
-          <div class="why-icon">📈</div>
-          <h4>Scalable Team</h4>
-          <p>From a single drawing package to a full project rollout — scale up or down to match your project demands.</p>
-        </div>
-      </div>
+    <div class="card">
+      <h3>BIM Family Creation</h3>
+      <p>Parametric Revit families for manufacturers and suppliers.</p>
     </div>
-  </section>
 
-  <!-- ─── PACKAGES ──────────────────────────────────── -->
-  <section id="packages">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="tag">Pricing</span>
-        <h2 class="section-title">Transparent Packages</h2>
-        <p class="section-sub">Fixed-scope packages to get you started quickly. Custom quotes available for larger or complex projects.</p>
-      </div>
-      <div class="packages-grid">
+  </div>
+</section>
 
-        <div class="pkg-card reveal">
-          <div class="pkg-name">Starter</div>
-          <div class="pkg-price">$800</div>
-          <div class="pkg-from">Starting from</div>
-          <ul class="pkg-features">
-            <li>Shop Drawing Production</li>
-            <li>2D Drawing Set</li>
-            <li>1 Revision Round</li>
-            <li>PDF + DWG Delivery</li>
-          </ul>
-          <a href="#cta" class="btn-pkg btn-pkg-outline">Get Started</a>
-        </div>
+<!-- PACKAGES -->
+<section>
+  <h2>Packages</h2>
+  <div class="grid">
 
-        <div class="pkg-card featured reveal">
-          <div class="pkg-badge">Most Popular</div>
-          <div class="pkg-name">Standard</div>
-          <div class="pkg-price">$1,500</div>
-          <div class="pkg-from">Starting from</div>
-          <ul class="pkg-features">
-            <li>BIM Model (LOD 300)</li>
-            <li>Shop Drawing Set</li>
-            <li>Clash Detection Report</li>
-            <li>2 Revision Rounds</li>
-            <li>RVT + PDF Delivery</li>
-          </ul>
-          <a href="#cta" class="btn-pkg btn-pkg-solid">Get Started</a>
-        </div>
-
-        <div class="pkg-card reveal">
-          <div class="pkg-name">Full BIM</div>
-          <div class="pkg-price">$3,000</div>
-          <div class="pkg-from">Starting from</div>
-          <ul class="pkg-features">
-            <li>Design Development (DD)</li>
-            <li>Construction BIM Model</li>
-            <li>Shop Drawings</li>
-            <li>As-Built Model</li>
-            <li>Full Handover Package</li>
-          </ul>
-          <a href="#cta" class="btn-pkg btn-pkg-outline">Get Started</a>
-        </div>
-
-        <div class="pkg-card reveal">
-          <div class="pkg-name">BIM Family</div>
-          <div class="pkg-price">$250</div>
-          <div class="pkg-from">Per family / bundles available</div>
-          <ul class="pkg-features">
-            <li>Parametric Revit Family</li>
-            <li>Manufacturer Data</li>
-            <li>LOD 200–400 Options</li>
-            <li>Type Catalogue</li>
-            <li>QA Checked</li>
-          </ul>
-          <a href="#cta" class="btn-pkg btn-pkg-outline">Get Started</a>
-        </div>
-
-      </div>
+    <div class="card pricing">
+      <h3>Starter</h3>
+      <p>Shop Drawings</p>
+      <strong>$800+</strong>
     </div>
-  </section>
 
-  <!-- ─── HOW IT WORKS ──────────────────────────────── -->
-  <section id="how">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="tag">Process</span>
-        <h2 class="section-title">How It Works</h2>
-        <p class="section-sub">A streamlined 3-step process designed to make collaboration effortless and deliverables predictable.</p>
-      </div>
-      <div class="steps">
-        <div class="step reveal">
-          <div class="step-num">01</div>
-          <h3>Submit Project or Specs</h3>
-          <p>Share your drawings, specs, or scope brief. We'll review and confirm deliverables, timeline, and pricing within 24 hours.</p>
-        </div>
-        <div class="step reveal">
-          <div class="step-num">02</div>
-          <h3>We Execute</h3>
-          <p>Our dedicated BIM team gets to work — modeling, drawing, and coordinating to your project standards and LOD requirements.</p>
-        </div>
-        <div class="step reveal">
-          <div class="step-num">03</div>
-          <h3>Review & Deliver</h3>
-          <p>You review the deliverables, request revisions if needed, and receive final files ready to deploy on site or for handover.</p>
-        </div>
-      </div>
+    <div class="card pricing">
+      <h3>Standard</h3>
+      <p>Model + Drawings</p>
+      <strong>$1500+</strong>
     </div>
-  </section>
 
-  <!-- ─── CLIENTS ───────────────────────────────────── -->
-  <section id="clients">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="tag">Who We Serve</span>
-        <h2 class="section-title">Our Clients & Partners</h2>
-        <p class="section-sub">We support the full construction and manufacturing ecosystem — from site to specification.</p>
-      </div>
-      <div class="clients-grid">
-        <div class="client-card reveal">
-          <div class="client-icon">🏢</div>
-          <h4>Main Contractors</h4>
-          <p>Full project BIM execution support</p>
-        </div>
-        <div class="client-card reveal">
-          <div class="client-icon">🔩</div>
-          <h4>Subcontractors</h4>
-          <p>Shop drawings & coordination models</p>
-        </div>
-        <div class="client-card reveal">
-          <div class="client-icon">📋</div>
-          <h4>Consultants</h4>
-          <p>DD models & design coordination</p>
-        </div>
-        <div class="client-card reveal">
-          <div class="client-icon">🏙️</div>
-          <h4>Developers</h4>
-          <p>As-built models & FM-ready handover</p>
-        </div>
-        <div class="client-card reveal">
-          <div class="client-icon">🏭</div>
-          <h4>Manufacturers & Suppliers</h4>
-          <p>Parametric BIM families & content</p>
-        </div>
-      </div>
+    <div class="card pricing">
+      <h3>Full BIM</h3>
+      <p>DD + Construction + As-Built</p>
+      <strong>$3000+</strong>
     </div>
-  </section>
 
-  <!-- ─── FINAL CTA ─────────────────────────────────── -->
-  <section id="cta">
-    <div class="container">
-      <div class="cta-inner reveal">
-        <h2>Ready to streamline your<br />BIM workflow?</h2>
-        <p>Tell us about your project and we'll get back to you within 24 hours with a tailored proposal.</p>
-        <div class="cta-buttons">
-          <a href="mailto:hello@bimexecution.com" class="btn-cta-primary">Get a Quote</a>
-          <a href="mailto:hello@bimexecution.com" class="btn-cta-secondary">Book a Call</a>
-        </div>
-      </div>
+    <div class="card pricing">
+      <h3>Family Package</h3>
+      <p>BIM Families Bundle</p>
+      <strong>$250+</strong>
     </div>
-  </section>
 
-  <!-- ─── FOOTER ────────────────────────────────────── -->
-  <footer>
-    <div class="footer-inner">
-      <span>© 2025 BIMExecution.com — All rights reserved.</span>
-      <span>
-        <a href="mailto:hello@bimexecution.com">hello@bimexecution.com</a>
-      </span>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section>
+  <h2>How It Works</h2>
+  <div class="grid">
+
+    <div class="card">
+      <h3>1. Submit</h3>
+      <p>Send drawings or product details.</p>
     </div>
-  </footer>
 
-  <script>
-    // Sticky nav shadow
-    const nav = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 20);
-    });
+    <div class="card">
+      <h3>2. Execute</h3>
+      <p>We model, coordinate, and produce.</p>
+    </div>
 
-    // Reveal on scroll
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 80);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    reveals.forEach(el => observer.observe(el));
-  </script>
+    <div class="card">
+      <h3>3. Deliver</h3>
+      <p>Review and receive final outputs.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section>
+  <h2>Our Clients & Partners</h2>
+  <div class="grid">
+
+    <div class="card">Main Contractors</div>
+    <div class="card">Subcontractors</div>
+    <div class="card">Consultants</div>
+    <div class="card">Developers</div>
+    <div class="card">Manufacturers & Suppliers</div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>Ready to streamline your BIM workflow?</h2>
+  <a href="mailto:youremail@example.com" class="btn btn-primary">Get a Quote</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 BIMExecution.com — All Rights Reserved
+</footer>
+
 </body>
 </html>

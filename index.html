@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="BIMExecution_BrowserTabLogo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
   <style>
     /* ── TOKENS ──────────────────────────────────────── */
     :root {
@@ -106,12 +106,8 @@
       margin: 0 auto;
     }
 
-    .nav-logo img {
-      height: 36px;
-      display: block;
-      /* Invert black-bg logo to show brand colours on white nav */
-      filter: brightness(0) saturate(100%) invert(17%) sepia(55%) saturate(800%) hue-rotate(202deg) brightness(88%);
-    }
+    /* Logo — displayed as-is, no filter. User uploads will show correctly. */
+    .nav-logo img { height: 36px; display: block; }
 
     .nav-links {
       display: flex;
@@ -137,7 +133,7 @@
       border-radius: 8px;
       font-weight: 600 !important;
     }
-    .nav-cta:hover { background: var(--blue) !important; transform: translateY(-1px); color: #fff !important; }
+    .nav-cta:hover { background: var(--blue) !important; transform: translateY(-1px); }
 
     /* ── HERO ────────────────────────────────────────── */
     #hero {
@@ -183,7 +179,7 @@
       border-radius: 999px;
       margin-bottom: 26px;
     }
-    .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
 
     h1 {
       font-size: clamp(2rem, 4.8vw, 3.6rem);
@@ -220,7 +216,6 @@
       display: inline-block;
       transition: transform .2s, box-shadow .2s;
       box-shadow: 0 4px 20px rgba(201,168,76,.35);
-      letter-spacing: .01em;
     }
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201,168,76,.48); }
 
@@ -330,7 +325,7 @@
 
     .work-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 24px;
     }
 
@@ -343,14 +338,62 @@
     }
     .work-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
 
-    .work-visual {
-      height: 200px;
+    /* Image placeholder area */
+    .work-img {
+      width: 100%;
+      height: 210px;
+      background: var(--grey-2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
       position: relative;
       overflow: hidden;
     }
-    .work-visual svg { width: 100%; height: 100%; display: block; }
+    /* Replace src attr with your image — placeholder stripe pattern */
+    .work-img::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--grey-2) 0px,
+        var(--grey-2) 10px,
+        #eaedf2 10px,
+        #eaedf2 20px
+      );
+      opacity: .5;
+    }
+    .work-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      position: absolute; inset: 0;
+    }
+    .work-img-label {
+      position: relative;
+      z-index: 1;
+      background: rgba(27,52,100,.75);
+      color: rgba(255,255,255,.9);
+      font-family: 'Inter', sans-serif;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 6px;
+      text-align: center;
+    }
+    .work-img-filename {
+      position: relative;
+      z-index: 1;
+      font-family: 'Inter', monospace;
+      font-size: .65rem;
+      color: var(--grey-3);
+    }
 
-    .work-body { padding: 24px; }
+    .work-body { padding: 22px 24px 24px; }
 
     .work-type {
       font-family: 'Inter', sans-serif;
@@ -374,7 +417,7 @@
 
     .work-meta {
       display: flex;
-      gap: 16px;
+      gap: 14px;
       margin-top: 16px;
       padding-top: 14px;
       border-top: 1px solid var(--grey-2);
@@ -508,7 +551,6 @@
       font-weight: 600;
       text-decoration: none;
       transition: background .2s, color .2s, transform .15s;
-      letter-spacing: .01em;
     }
     .btn-pkg-outline { border: 1.5px solid var(--navy); color: var(--navy); }
     .btn-pkg-outline:hover { background: var(--navy); color: #fff; }
@@ -550,16 +592,10 @@
       box-shadow: 0 8px 24px rgba(27,52,100,.22);
     }
 
-    .step h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 10px;
-      letter-spacing: -.01em;
-    }
+    .step h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; letter-spacing: -.01em; }
     .step p { font-size: .875rem; line-height: 1.72; }
 
-    /* ── WHO WE WORK WITH ────────────────────────────── */
+    /* ── CLIENTS ─────────────────────────────────────── */
     #clients { padding: 100px 0; background: var(--grey-1); }
 
     .clients-grid {
@@ -580,13 +616,7 @@
     .client-card:hover { border-color: var(--navy); box-shadow: var(--shadow); transform: translateY(-3px); }
 
     .client-icon { font-size: 2rem; margin-bottom: 12px; }
-    .client-card h4 {
-      font-size: .9rem;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 5px;
-      letter-spacing: -.01em;
-    }
+    .client-card h4 { font-size: .9rem; font-weight: 700; color: var(--navy); margin-bottom: 5px; letter-spacing: -.01em; }
     .client-card p { font-size: .78rem; color: var(--grey-3); line-height: 1.5; }
 
     /* ── FINAL CTA ───────────────────────────────────── */
@@ -607,20 +637,8 @@
     }
 
     .cta-inner { position: relative; z-index: 2; }
-    #cta h2 {
-      font-size: clamp(1.75rem, 3.8vw, 2.8rem);
-      color: #fff;
-      margin-bottom: 14px;
-      letter-spacing: -.03em;
-    }
-    #cta p {
-      font-size: 1rem;
-      color: rgba(255,255,255,.6);
-      margin-bottom: 38px;
-      max-width: 460px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+    #cta h2 { font-size: clamp(1.75rem, 3.8vw, 2.8rem); color: #fff; margin-bottom: 14px; letter-spacing: -.03em; }
+    #cta p { font-size: 1rem; color: rgba(255,255,255,.6); margin-bottom: 38px; max-width: 460px; margin-left: auto; margin-right: auto; }
 
     .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
@@ -691,24 +709,24 @@
 </head>
 <body>
 
-  <!-- NAVBAR -->
+  <!-- ── NAVBAR ──────────────────────────────────────── -->
   <nav id="navbar">
     <div class="nav-inner">
       <a class="nav-logo" href="https://bimexecution.com">
         <img src="BIMExecution_Logo_2.png" alt="BIMExecution.com" />
       </a>
       <ul class="nav-links">
-        <li><a href="https://bimexecution.com/services">Services</a></li>
-        <li><a href="https://bimexecution.com/work">Sample Work</a></li>
-        <li><a href="https://bimexecution.com/packages">Packages</a></li>
-        <li><a href="https://bimexecution.com/process">Process</a></li>
-        <li><a href="https://bimexecution.com/clients">Clients</a></li>
-        <li><a class="nav-cta" href="https://bimexecution.com/quote">Get a Quote</a></li>
+        <li><a href="https://bimexecution.com/#services">Services</a></li>
+        <li><a href="https://bimexecution.com/#work">Sample Work</a></li>
+        <li><a href="https://bimexecution.com/#packages">Packages</a></li>
+        <li><a href="https://bimexecution.com/#how">Process</a></li>
+        <li><a href="https://bimexecution.com/#clients">Clients</a></li>
+        <li><a class="nav-cta" href="https://bimexecution.com/#cta">Get a Quote</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- HERO -->
+  <!-- ── HERO ────────────────────────────────────────── -->
   <section id="hero">
     <div class="container">
       <div class="hero-inner">
@@ -719,8 +737,8 @@
         <h1>End-to-End BIM Production —<br /><em>Design to As-Built</em><br />+ BIM Content Creation</h1>
         <p class="hero-sub">Complete BIM solutions including design development, shop drawings, as-built models, and BIM families for manufacturers. Delivered fast, to standard.</p>
         <div class="btn-group">
-          <a href="https://bimexecution.com/quote" class="btn-primary">Get a Quote</a>
-          <a href="https://bimexecution.com/work" class="btn-secondary">View Sample Work</a>
+          <a href="https://bimexecution.com/#cta" class="btn-primary">Get a Quote</a>
+          <a href="https://bimexecution.com/#work" class="btn-secondary">View Sample Work</a>
         </div>
         <div class="hero-stats">
           <div class="stat-item">
@@ -744,7 +762,7 @@
     </div>
   </section>
 
-  <!-- SERVICES -->
+  <!-- ── SERVICES ─────────────────────────────────────── -->
   <section id="services">
     <div class="container">
       <div class="section-header reveal">
@@ -758,7 +776,9 @@
           <h3>Design Development</h3>
           <p>Early-stage BIM modeling to support design intent, coordination, and documentation during the DD phase.</p>
           <div class="service-tags">
-            <span class="s-tag">LOD 200</span><span class="s-tag">LOD 300</span><span class="s-tag">Coordination</span>
+            <span class="s-tag">LOD 200</span>
+            <span class="s-tag">LOD 300</span>
+            <span class="s-tag">Coordination</span>
           </div>
         </div>
         <div class="service-card reveal">
@@ -766,7 +786,9 @@
           <h3>BIM Modeling + Shop Drawings</h3>
           <p>Detailed construction-phase models with full drawing production and clash coordination, ready for fabrication.</p>
           <div class="service-tags">
-            <span class="s-tag">LOD 300–400</span><span class="s-tag">Shop Drawings</span><span class="s-tag">Clash Detection</span>
+            <span class="s-tag">LOD 300–400</span>
+            <span class="s-tag">Shop Drawings</span>
+            <span class="s-tag">Clash Detection</span>
           </div>
         </div>
         <div class="service-card reveal">
@@ -774,7 +796,9 @@
           <h3>As-Built BIM</h3>
           <p>Post-construction model updates reflecting final site conditions, ready for handover and facilities management.</p>
           <div class="service-tags">
-            <span class="s-tag">As-Built</span><span class="s-tag">Handover Docs</span><span class="s-tag">FM Ready</span>
+            <span class="s-tag">As-Built</span>
+            <span class="s-tag">Handover Docs</span>
+            <span class="s-tag">FM Ready</span>
           </div>
         </div>
         <div class="service-card reveal">
@@ -782,68 +806,40 @@
           <h3>BIM Family Creation</h3>
           <p>Parametric Revit families built to manufacturer specifications with embedded data and full LOD compliance.</p>
           <div class="service-tags">
-            <span class="s-tag">Parametric</span><span class="s-tag">Manufacturer Data</span><span class="s-tag">LOD 200–400</span>
+            <span class="s-tag">Parametric</span>
+            <span class="s-tag">Manufacturer Data</span>
+            <span class="s-tag">LOD 200–400</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SAMPLE WORK -->
+  <!-- ── SAMPLE WORK ───────────────────────────────────── -->
   <section id="work">
     <div class="container">
       <div class="section-header reveal">
-        <span class="tag">Sample Work</span>
-        <h2 class="section-title">Projects We've Delivered</h2>
-        <p class="section-sub">A selection of recent BIM production work spanning coordination drawings, structural modeling, and manufacturer content.</p>
+        <span class="tag">Portfolio</span>
+        <h2 class="section-title">Sample Work</h2>
+        <p class="section-sub">A selection of recent BIM production work spanning shop drawings, BIM modeling, family creation, and full-cycle delivery.</p>
       </div>
       <div class="work-grid">
 
-        <!-- MEP Shop Drawing -->
+        <!-- Project 1: Shop Drawing Package -->
         <div class="work-card reveal">
-          <div class="work-visual" style="background:#0e1e3f;">
-            <svg viewBox="0 0 380 200" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <pattern id="g1" width="20" height="20" patternUnits="userSpaceOnUse">
-                  <path d="M20 0L0 0 0 20" fill="none" stroke="rgba(255,255,255,.055)" stroke-width="1"/>
-                </pattern>
-              </defs>
-              <rect width="380" height="200" fill="url(#g1)"/>
-              <!-- Title block bottom -->
-              <rect x="0" y="168" width="380" height="32" fill="#080f1f"/>
-              <text x="14" y="182" font-family="monospace" font-size="7.5" fill="#4a7fd4">PROJECT: MERIDIAN TOWER — L14 MEP COORDINATION</text>
-              <text x="366" y="182" font-family="monospace" font-size="7.5" fill="#c9a84c" text-anchor="end">DWG-MEP-L14-003  REV C</text>
-              <text x="14" y="193" font-family="monospace" font-size="7" fill="rgba(255,255,255,.3)">SCALE 1:50   LOD 350   © BIMEXECUTION.COM</text>
-              <!-- Slab lines -->
-              <rect x="14" y="18" width="352" height="7" fill="#2d52a0" opacity=".7" rx="1"/>
-              <rect x="14" y="155" width="352" height="7" fill="#2d52a0" opacity=".7" rx="1"/>
-              <!-- Main supply duct -->
-              <rect x="30" y="42" width="230" height="26" fill="#13274d" stroke="#4a7fd4" stroke-width="1.5" rx="2"/>
-              <text x="145" y="58" font-family="monospace" font-size="8" fill="#7aaae8" text-anchor="middle">SUPPLY AIR — 800×400 — LOD 350</text>
-              <!-- Return duct branch -->
-              <rect x="260" y="42" width="100" height="26" fill="#13274d" stroke="#4a7fd4" stroke-width="1.5" rx="2"/>
-              <text x="310" y="58" font-family="monospace" font-size="7.5" fill="#7aaae8" text-anchor="middle">RETURN — 600×300</text>
-              <!-- Vertical drops -->
-              <rect x="78"  y="68" width="20" height="76" fill="#13274d" stroke="#4a7fd4" stroke-width="1.5" rx="2"/>
-              <rect x="204" y="68" width="20" height="76" fill="#13274d" stroke="#4a7fd4" stroke-width="1.5" rx="2"/>
-              <!-- HWS pipe -->
-              <line x1="30"  y1="112" x2="362" y2="112" stroke="#c9a84c" stroke-width="4"/>
-              <circle cx="88"  cy="112" r="5.5" fill="#c9a84c" stroke="#0e1e3f" stroke-width="1.5"/>
-              <circle cx="214" cy="112" r="5.5" fill="#c9a84c" stroke="#0e1e3f" stroke-width="1.5"/>
-              <circle cx="300" cy="112" r="5.5" fill="#c9a84c" stroke="#0e1e3f" stroke-width="1.5"/>
-              <text x="190" y="105" font-family="monospace" font-size="7.5" fill="#c9a84c" text-anchor="middle">HWS — DN65 — 60°C</text>
-              <!-- HWR pipe -->
-              <line x1="30"  y1="127" x2="362" y2="127" stroke="#e05e5e" stroke-width="4"/>
-              <text x="190" y="140" font-family="monospace" font-size="7.5" fill="#e05e5e" text-anchor="middle">HWR — DN65 — 45°C</text>
-              <!-- Conduit -->
-              <line x1="30" y1="148" x2="362" y2="148" stroke="#5bb97a" stroke-width="2.5" stroke-dasharray="9,4"/>
-              <text x="190" y="155" font-family="monospace" font-size="7" fill="#5bb97a" text-anchor="middle">32mm CONDUIT — ELEC</text>
-            </svg>
+          <div class="work-img">
+            <!--
+              PLACEHOLDER — replace with your image:
+              <img src="portfolio_shop_drawings.jpg" alt="Shop Drawing Package" />
+              Recommended size: 800 × 420px
+            -->
+            <span class="work-img-label">Replace with your image</span>
+            <span class="work-img-filename">portfolio_shop_drawings.jpg</span>
           </div>
           <div class="work-body">
-            <div class="work-type">MEP Shop Drawing</div>
-            <h3>Meridian Tower — Level 14 Services Coordination Drawing</h3>
-            <p>Full MEP coordination drawing set produced for a 28-storey commercial tower — covering HVAC, hydraulics, and electrical routing at LOD 350.</p>
+            <div class="work-type">Shop Drawing Package</div>
+            <h3>Commercial Tower — Level 14 MEP Coordination Drawing Set</h3>
+            <p>Full MEP coordination drawing set produced for a 28-storey commercial tower, covering HVAC, hydraulics, and electrical routing at LOD 350.</p>
             <div class="work-meta">
               <div class="work-meta-item">Type: <strong>Shop Drawing</strong></div>
               <div class="work-meta-item">LOD: <strong>350</strong></div>
@@ -852,51 +848,21 @@
           </div>
         </div>
 
-        <!-- Structural BIM Model -->
+        <!-- Project 2: BIM Model -->
         <div class="work-card reveal">
-          <div class="work-visual" style="background:#111827;">
-            <svg viewBox="0 0 380 200" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <pattern id="g2" width="24" height="24" patternUnits="userSpaceOnUse">
-                  <path d="M24 0L0 0 0 24" fill="none" stroke="rgba(255,255,255,.045)" stroke-width="1"/>
-                </pattern>
-              </defs>
-              <rect width="380" height="200" fill="url(#g2)"/>
-              <!-- Columns -->
-              <rect x="55"  y="30" width="16" height="140" fill="#2347a0" rx="2"/>
-              <rect x="182" y="30" width="16" height="140" fill="#2347a0" rx="2"/>
-              <rect x="309" y="30" width="16" height="140" fill="#2347a0" rx="2"/>
-              <!-- Beams -->
-              <rect x="55"  y="30"  width="270" height="13" fill="#1b3464" stroke="#4a7fd4" stroke-width="1.2" rx="1"/>
-              <rect x="55"  y="88"  width="270" height="13" fill="#1b3464" stroke="#4a7fd4" stroke-width="1.2" rx="1"/>
-              <rect x="55"  y="156" width="270" height="13" fill="#1b3464" stroke="#4a7fd4" stroke-width="1.2" rx="1"/>
-              <!-- Slab shading -->
-              <rect x="55" y="30" width="270" height="13" fill="rgba(45,82,160,.25)"/>
-              <rect x="55" y="88" width="270" height="13" fill="rgba(45,82,160,.25)"/>
-              <!-- Connection nodes -->
-              <circle cx="63"  cy="36"  r="5.5" fill="#c9a84c"/>
-              <circle cx="190" cy="36"  r="5.5" fill="#c9a84c"/>
-              <circle cx="317" cy="36"  r="5.5" fill="#c9a84c"/>
-              <circle cx="63"  cy="94"  r="5.5" fill="#c9a84c"/>
-              <circle cx="190" cy="94"  r="5.5" fill="#c9a84c"/>
-              <circle cx="317" cy="94"  r="5.5" fill="#c9a84c"/>
-              <circle cx="63"  cy="162" r="5.5" fill="#c9a84c"/>
-              <circle cx="190" cy="162" r="5.5" fill="#c9a84c"/>
-              <circle cx="317" cy="162" r="5.5" fill="#c9a84c"/>
-              <!-- Dim line -->
-              <line x1="55" y1="12" x2="325" y2="12" stroke="rgba(255,255,255,.25)" stroke-width="1"/>
-              <line x1="55" y1="8"  x2="55"  y2="16" stroke="rgba(255,255,255,.25)" stroke-width="1"/>
-              <line x1="325" y1="8" x2="325" y2="16" stroke="rgba(255,255,255,.25)" stroke-width="1"/>
-              <text x="190" y="9" font-family="monospace" font-size="7.5" fill="rgba(255,255,255,.4)" text-anchor="middle">12,500 mm GRID SPAN × 3 BAYS</text>
-              <!-- LOD tag -->
-              <rect x="272" y="168" width="96" height="18" rx="4" fill="#c9a84c" opacity=".9"/>
-              <text x="320" y="180" font-family="monospace" font-size="8" fill="#fff" text-anchor="middle" font-weight="bold">LOD 300 — STRUCTURAL</text>
-            </svg>
+          <div class="work-img">
+            <!--
+              PLACEHOLDER — replace with your image:
+              <img src="portfolio_bim_model.jpg" alt="BIM Model" />
+              Recommended size: 800 × 420px
+            -->
+            <span class="work-img-label">Replace with your image</span>
+            <span class="work-img-filename">portfolio_bim_model.jpg</span>
           </div>
           <div class="work-body">
-            <div class="work-type">Structural BIM Model</div>
-            <h3>Oakfield Residences — 8-Storey RC Frame BIM Model</h3>
-            <p>LOD 300 structural model including columns, beams, and flat plate slabs, delivered for design coordination and structural drawing production.</p>
+            <div class="work-type">BIM Model</div>
+            <h3>Residential Development — LOD 300 Structural &amp; Architectural Model</h3>
+            <p>LOD 300 coordinated model including structural frame, architectural elements, and services rough-ins delivered for a multi-storey residential block.</p>
             <div class="work-meta">
               <div class="work-meta-item">Type: <strong>BIM Model</strong></div>
               <div class="work-meta-item">LOD: <strong>300</strong></div>
@@ -905,60 +871,21 @@
           </div>
         </div>
 
-        <!-- BIM Family -->
+        <!-- Project 3: BIM Family Creation -->
         <div class="work-card reveal">
-          <div class="work-visual" style="background:#0d1f35;">
-            <svg viewBox="0 0 380 200" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <pattern id="g3" width="20" height="20" patternUnits="userSpaceOnUse">
-                  <path d="M20 0L0 0 0 20" fill="none" stroke="rgba(255,255,255,.045)" stroke-width="1"/>
-                </pattern>
-              </defs>
-              <rect width="380" height="200" fill="url(#g3)"/>
-              <!-- Type catalogue panel -->
-              <rect x="14" y="28" width="88" height="148" rx="5" fill="rgba(27,52,100,.55)" stroke="rgba(74,127,212,.25)" stroke-width="1"/>
-              <text x="58" y="44" font-family="monospace" font-size="6.5" fill="rgba(255,255,255,.45)" text-anchor="middle" font-weight="bold">TYPE CATALOGUE</text>
-              <line x1="18" y1="48" x2="98" y2="48" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
-              <text x="58" y="62"  font-family="monospace" font-size="7" fill="#7aaae8" text-anchor="middle">FCU-0600</text>
-              <text x="58" y="76"  font-family="monospace" font-size="7" fill="#7aaae8" text-anchor="middle">FCU-0800</text>
-              <text x="58" y="90"  font-family="monospace" font-size="7" fill="#7aaae8" text-anchor="middle">FCU-1000</text>
-              <text x="58" y="104" font-family="monospace" font-size="7" fill="#7aaae8" text-anchor="middle">FCU-1200</text>
-              <rect x="18" y="110" width="78" height="14" rx="3" fill="rgba(201,168,76,.18)"/>
-              <text x="58" y="120" font-family="monospace" font-size="7" fill="#c9a84c" text-anchor="middle" font-weight="bold">FCU-1500 ● active</text>
-              <text x="58" y="134" font-family="monospace" font-size="7" fill="#7aaae8" text-anchor="middle">FCU-2000</text>
-              <text x="58" y="148" font-family="monospace" font-size="7" fill="#7aaae8" text-anchor="middle">FCU-2500</text>
-              <!-- FCU body -->
-              <rect x="120" y="52" width="170" height="90" rx="6" fill="#1b3464" stroke="#4a7fd4" stroke-width="1.5"/>
-              <!-- Grille lines -->
-              <line x1="130" y1="67"  x2="280" y2="67"  stroke="#4a7fd4" stroke-width=".8" opacity=".5"/>
-              <line x1="130" y1="79"  x2="280" y2="79"  stroke="#4a7fd4" stroke-width=".8" opacity=".5"/>
-              <line x1="130" y1="91"  x2="280" y2="91"  stroke="#4a7fd4" stroke-width=".8" opacity=".5"/>
-              <line x1="130" y1="103" x2="280" y2="103" stroke="#4a7fd4" stroke-width=".8" opacity=".5"/>
-              <line x1="130" y1="115" x2="280" y2="115" stroke="#4a7fd4" stroke-width=".8" opacity=".5"/>
-              <line x1="130" y1="127" x2="280" y2="127" stroke="#4a7fd4" stroke-width=".8" opacity=".5"/>
-              <!-- Pipe connectors -->
-              <circle cx="162" cy="52" r="7.5" fill="none" stroke="#c9a84c" stroke-width="2"/>
-              <circle cx="248" cy="52" r="7.5" fill="none" stroke="#5bb97a" stroke-width="2"/>
-              <text x="162" y="40" font-family="monospace" font-size="6.5" fill="#c9a84c" text-anchor="middle">HWS</text>
-              <text x="248" y="40" font-family="monospace" font-size="6.5" fill="#5bb97a" text-anchor="middle">HWR</text>
-              <!-- Label -->
-              <rect x="120" y="154" width="170" height="22" rx="4" fill="#080f1f"/>
-              <text x="205" y="163" font-family="monospace" font-size="7.5" fill="#7aaae8" text-anchor="middle">FCU-1500 — 4-PIPE — 2.1 kW</text>
-              <text x="205" y="172" font-family="monospace" font-size="6.5" fill="rgba(255,255,255,.3)" text-anchor="middle">PARAMETRIC REVIT FAMILY — BIMEXECUTION.COM</text>
-              <!-- Param labels -->
-              <text x="310" y="62"  font-family="monospace" font-size="6.5" fill="rgba(255,255,255,.4)">W: {1500}</text>
-              <text x="310" y="74"  font-family="monospace" font-size="6.5" fill="rgba(255,255,255,.4)">H: {200}</text>
-              <text x="310" y="86"  font-family="monospace" font-size="6.5" fill="rgba(255,255,255,.4)">D: {600}</text>
-              <text x="310" y="98"  font-family="monospace" font-size="6.5" fill="#c9a84c">kW: 2.1</text>
-              <!-- LOD badge -->
-              <rect x="296" y="168" width="72" height="17" rx="4" fill="#c9a84c" opacity=".9"/>
-              <text x="332" y="179" font-family="monospace" font-size="7.5" fill="#fff" text-anchor="middle" font-weight="bold">LOD 400 — MEP</text>
-            </svg>
+          <div class="work-img">
+            <!--
+              PLACEHOLDER — replace with your image:
+              <img src="portfolio_bim_family.jpg" alt="BIM Family Creation" />
+              Recommended size: 800 × 420px
+            -->
+            <span class="work-img-label">Replace with your image</span>
+            <span class="work-img-filename">portfolio_bim_family.jpg</span>
           </div>
           <div class="work-body">
-            <div class="work-type">BIM Family — Manufacturer Content</div>
-            <h3>Fan Coil Unit — Parametric Revit Family with Full Type Catalogue</h3>
-            <p>Fully parametric 4-pipe FCU family created for a HVAC manufacturer, with embedded performance data, type catalogue, and LOD 400 geometry ready for project coordination.</p>
+            <div class="work-type">BIM Family Creation</div>
+            <h3>HVAC Manufacturer — Parametric Fan Coil Unit Family Library</h3>
+            <p>Full parametric Revit family library created for a HVAC manufacturer, including type catalogues, embedded performance data, and LOD 400 geometry.</p>
             <div class="work-meta">
               <div class="work-meta-item">Type: <strong>BIM Family</strong></div>
               <div class="work-meta-item">LOD: <strong>400</strong></div>
@@ -967,11 +894,34 @@
           </div>
         </div>
 
+        <!-- Project 4: Full BIM Cycle -->
+        <div class="work-card reveal">
+          <div class="work-img">
+            <!--
+              PLACEHOLDER — replace with your image:
+              <img src="portfolio_full_bim_cycle.jpg" alt="Full BIM Cycle" />
+              Recommended size: 800 × 420px
+            -->
+            <span class="work-img-label">Replace with your image</span>
+            <span class="work-img-filename">portfolio_full_bim_cycle.jpg</span>
+          </div>
+          <div class="work-body">
+            <div class="work-type">Full BIM Cycle</div>
+            <h3>Mixed-Use Development — DD Through to As-Built Handover</h3>
+            <p>End-to-end BIM delivery from design development through construction-phase coordination and final as-built model, handed over ready for FM use.</p>
+            <div class="work-meta">
+              <div class="work-meta-item">Type: <strong>Full Cycle</strong></div>
+              <div class="work-meta-item">LOD: <strong>200–400</strong></div>
+              <div class="work-meta-item">Sector: <strong>Mixed Use</strong></div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- WHY US -->
+  <!-- ── WHY US ────────────────────────────────────────── -->
   <section id="why">
     <div class="container">
       <div class="reveal">
@@ -1004,7 +954,7 @@
     </div>
   </section>
 
-  <!-- PACKAGES -->
+  <!-- ── PACKAGES ──────────────────────────────────────── -->
   <section id="packages">
     <div class="container">
       <div class="section-header reveal">
@@ -1013,6 +963,7 @@
         <p class="section-sub">Fixed-scope packages to get you started quickly. Custom quotes available for larger or complex projects.</p>
       </div>
       <div class="packages-grid">
+
         <div class="pkg-card reveal">
           <div class="pkg-name">Starter</div>
           <div class="pkg-price">$800</div>
@@ -1023,7 +974,7 @@
             <li>1 Revision Round</li>
             <li>PDF + DWG Delivery</li>
           </ul>
-          <a href="https://bimexecution.com/quote" class="btn-pkg btn-pkg-outline">Get Started</a>
+          <a href="https://bimexecution.com/#cta" class="btn-pkg btn-pkg-outline">Get Started</a>
         </div>
 
         <div class="pkg-card featured reveal">
@@ -1038,7 +989,7 @@
             <li>2 Revision Rounds</li>
             <li>RVT + PDF Delivery</li>
           </ul>
-          <a href="https://bimexecution.com/quote" class="btn-pkg btn-pkg-solid">Get Started</a>
+          <a href="https://bimexecution.com/#cta" class="btn-pkg btn-pkg-solid">Get Started</a>
         </div>
 
         <div class="pkg-card reveal">
@@ -1052,7 +1003,7 @@
             <li>As-Built Model</li>
             <li>Full Handover Package</li>
           </ul>
-          <a href="https://bimexecution.com/quote" class="btn-pkg btn-pkg-outline">Get Started</a>
+          <a href="https://bimexecution.com/#cta" class="btn-pkg btn-pkg-outline">Get Started</a>
         </div>
 
         <div class="pkg-card reveal">
@@ -1066,13 +1017,14 @@
             <li>Type Catalogue</li>
             <li>QA Checked</li>
           </ul>
-          <a href="https://bimexecution.com/quote" class="btn-pkg btn-pkg-outline">Get Started</a>
+          <a href="https://bimexecution.com/#cta" class="btn-pkg btn-pkg-outline">Get Started</a>
         </div>
+
       </div>
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
+  <!-- ── HOW IT WORKS ──────────────────────────────────── -->
   <section id="how">
     <div class="container">
       <div class="section-header reveal">
@@ -1100,12 +1052,12 @@
     </div>
   </section>
 
-  <!-- WHO WE WORK WITH -->
+  <!-- ── WHO WE WORK WITH / CLIENTS ────────────────────── -->
   <section id="clients">
     <div class="container">
       <div class="section-header reveal">
         <span class="tag">Who We Work With</span>
-        <h2 class="section-title">We Work With</h2>
+        <h2 class="section-title">Our Clients &amp; Partners</h2>
         <p class="section-sub">We support the full construction and manufacturing ecosystem — from site coordination to product specification.</p>
       </div>
       <div class="clients-grid">
@@ -1138,21 +1090,21 @@
     </div>
   </section>
 
-  <!-- FINAL CTA -->
+  <!-- ── FINAL CTA ─────────────────────────────────────── -->
   <section id="cta">
     <div class="container">
       <div class="cta-inner reveal">
         <h2>Ready to streamline your<br />BIM workflow?</h2>
         <p>Tell us about your project and we'll get back to you within 24 hours with a tailored proposal.</p>
         <div class="cta-buttons">
-          <a href="https://bimexecution.com/quote" class="btn-cta-primary">Get a Quote</a>
-          <a href="https://bimexecution.com/contact" class="btn-cta-secondary">Book a Call</a>
+          <a href="mailto:hello@bimexecution.com" class="btn-cta-primary">Get a Quote</a>
+          <a href="mailto:hello@bimexecution.com" class="btn-cta-secondary">Book a Call</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ── FOOTER ─────────────────────────────────────────── -->
   <footer>
     <div class="footer-inner">
       <span>© 2025 BIMExecution.com — All rights reserved.</span>
@@ -1161,11 +1113,13 @@
   </footer>
 
   <script>
+    // Sticky nav shadow on scroll
     const nav = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 20);
     });
 
+    // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
